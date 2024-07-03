@@ -1,0 +1,21 @@
+// Function to extract IP addresses from HTML text
+function extractIPs(html) {
+  const ipRegex = /\b(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b/g;
+  const ips = html.match(ipRegex);
+  return ips;
+}
+
+// Get the HTML text
+const html = document.documentElement.outerHTML;
+
+// Extract IP addresses
+const ips = extractIPs(html);
+
+// Create a blob with the extracted IP addresses
+const blob = new Blob([ips.join('\n')], { type: 'text/plain' });
+
+// Create a link to download the blob
+const link = document.createElement('a');
+link.href = URL.createObjectURL(blob);
+link.download = 'ambil_ips.txt';
+link.click();
